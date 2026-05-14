@@ -1,0 +1,113 @@
+Login · HTML
+Copy
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Sekolah Santo Andreas</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Background image layer -->
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Centered card -->
+    <main class="login-wrapper">
+
+        <div class="login-card">
+
+            <!-- Logo + heading -->
+            <div class="brand">
+                <img src="https://i.ibb.co.com/V033MvMm/St-Andreas-Logo.png" alt="Logo Sekolah Santo Andreas"
+                    class="brand-logo">
+                <h1 class="brand-title">Login Akun Siswa</h1>
+                <p class="brand-sub">Masuk ke akun Anda untuk melihat nilai & mengakses fitur-fitur lainnya</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Form -->
+            <form class="login-form" onsubmit="return false;">
+
+                <div class="field-group">
+                    <i class="fas fa-user field-icon"></i>
+                    <input type="text" id="username" class="field-input" placeholder="ID" autocomplete="username">
+                </div>
+
+                <div class="field-group">
+                    <i class="fas fa-lock field-icon"></i>
+                    <input type="password" id="password" class="field-input" placeholder="Password"
+                        autocomplete="current-password">
+                    <button type="button" class="toggle-pw" onclick="togglePassword()" aria-label="Tampilkan password">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+
+                <div class="form-meta">
+                    <label class="remember">
+                        <input type="checkbox"> Ingat saya
+                    </label>
+                    <a href="#" class="forgot">Lupa password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Masuk <i class="fas fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+        </div>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+
+    </main>
+
+    <script>
+        function togglePassword() {
+            const pw = document.getElementById("password");
+            const icon = document.getElementById("eyeIcon");
+            if (pw.type === "password") {
+                pw.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                pw.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+
+        document.querySelector(".login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const inputId = document.getElementById("username").value.trim();
+            const inputPw = document.getElementById("password").value.trim();
+
+            const user = users.find(u => u.id === inputId && u.password === inputPw);
+
+            if (user) {
+                // Store result and go to results page
+                localStorage.setItem("loggedUser", JSON.stringify(user));
+                window.location.href = "results.html";
+            } else {
+                alert("ID atau password salah!");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
